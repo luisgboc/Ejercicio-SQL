@@ -49,7 +49,7 @@ UNION ALL
 );
 
 -- ¿Cuántos pedidos se hicieron entre el "2023-01-01" y el "2023-01-05"
-SELECT COUNT(*)
+SELECT COUNT (*)
 FROM order_details
 WHERE order_date BETWEEN '2023-01-01' AND '2023-01-05';
 
@@ -65,6 +65,15 @@ LEFT JOIN menu_items ON item_id = menu_item_id;
 -- Análisis de categoría más vendida 
 SELECT category, COUNT(order_id) AS ordenes_categoria
 FROM order_details
-LEFT JOIN menu_items on item_id = menu_item_id
+LEFT JOIN menu_items ON item_id = menu_item_id
 GROUP BY category
 ORDER BY ordenes_categoria DESC;
+
+-- Análisis de categoría que más ingresos genera
+SELECT category, SUM(price) AS total_income
+FROM menu_items
+RIGHT JOIN order_details ON menu_item_id = item_id
+GROUP BY category
+ORDER BY total_income DESC;
+
+
